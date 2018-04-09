@@ -72,8 +72,7 @@ export class GoogleMapsProvider {
     });
 
     this.markers.push(marker);
-
-    console.log(marker);
+    
     let content = "<p>" + info + "</p>"
 
     this.addInfoWindow(marker, content);

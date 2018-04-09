@@ -27,11 +27,10 @@ export class MapsPage {
 
     let mapLoaded = this.maps.init(this.mapElement.nativeElement);
     let locationsLoaded = this.locations.load();
-
-    Promise.all([
-      mapLoaded,
-      locationsLoaded
-    ]).then((result) => {
+    
+    console.log(locationsLoaded);
+    
+    Promise.all([mapLoaded,locationsLoaded]).then((result) => {
 
       let locations = result[1];
 

@@ -36,15 +36,11 @@ export class LocationsProvider {
             lng: position.coords.longitude
           };
 
-          console.log(usersLocation);
-
           this.data = this.applyHaversine(data, usersLocation);
 
           this.data.sort((locationA, locationB) => {
             return locationA.distance - locationB.distance;
           });
-
-          console.log(this.data);
           resolve(this.data);
         });
       });
@@ -93,7 +89,6 @@ export class LocationsProvider {
     let d = R * c;
 
     return d;
-
   }
 
   toRad(x) {
