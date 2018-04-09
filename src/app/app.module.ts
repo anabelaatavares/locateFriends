@@ -20,6 +20,7 @@ import { HttpModule } from '@angular/http';
 import { MapsPage } from '../pages/maps/maps';
 import { RestProvider } from '../providers/rest/rest';
 import { ListPage } from '../pages/list/list';
+import { AddContPage } from '../pages/add-cont/add-cont';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ListPage } from '../pages/list/list';
     ContactPage,
     HomePage,
     MapsPage,
+    AddContPage,
     ListPage,
     TabsPage
   ],
@@ -43,6 +45,7 @@ import { ListPage } from '../pages/list/list';
     ContactPage,
     HomePage,
     MapsPage,
+    AddContPage,
     ListPage,
     TabsPage
   ],
