@@ -18,9 +18,9 @@ import { LocationsProvider } from '../../providers/locations/locations';
 export class MapsPage {
 
   @ViewChild('map') mapElement: ElementRef;
-  @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
-  constructor(public navCtrl: NavController, public maps: GoogleMapsProvider, public platform: Platform, public locations: LocationsProvider) {
+  constructor(public navCtrl: NavController, public maps: GoogleMapsProvider, 
+     public locations: LocationsProvider) {
   }
 
   ionViewDidLoad() {

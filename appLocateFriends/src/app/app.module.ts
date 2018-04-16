@@ -21,6 +21,7 @@ import { MapsPage } from '../pages/maps/maps';
 import { RestProvider } from '../providers/rest/rest';
 import { ListPage } from '../pages/list/list';
 import { AddContPage } from '../pages/add-cont/add-cont';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AddContPage } from '../pages/add-cont/add-cont';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

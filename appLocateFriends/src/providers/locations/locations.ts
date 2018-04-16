@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
+import { HttpClient } from '@angular/common/http';
 
 /*
   Generated class for the LocationsProvider provider.
@@ -15,7 +16,7 @@ export class LocationsProvider {
   data: any;
   api: string = 'http://84.91.32.243:3000/api/Contactos';
 
-  constructor(public http: Http, public geo: Geolocation) {
+  constructor(public http: HttpClient, public geo: Geolocation) {
 
   }
 
@@ -27,7 +28,7 @@ export class LocationsProvider {
 
     return new Promise(resolve => {
 
-      this.http.get(this.api).map(res => res.json()).subscribe(data => {
+      this.http.get(this.api).subscribe(data => {
 
         this.geo.getCurrentPosition().then((position) => {
 

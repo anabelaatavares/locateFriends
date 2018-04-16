@@ -47,7 +47,7 @@ export class AddContPage {
       this.rest.postUsers(data).then((result) => {
         this.resp = result;
         console.log(this.resp);
-        if (this.resp.status == 200) {
+        if (this.resp.serverStatus == 2) {
           this.presentAlert("Adicionada a localização do: " + data.Nome);
         }
       }, (err) => {
@@ -65,7 +65,6 @@ export class AddContPage {
           text: 'Ok',
           handler: () => {
            this.nome = '';
-           this.navCtrl.push(MapsPage)
           }
         }
       ]

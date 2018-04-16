@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /*
   Generated class for the RestProvider provider.
@@ -12,7 +13,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 export class RestProvider {
 
   api: string = 'http://84.91.32.243:3000';
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
   }
 
@@ -26,10 +27,8 @@ export class RestProvider {
 
   async postUsers(data) {
     return await new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append("Content-Type", "application/json");
-      let options = new RequestOptions({ headers: headers });
-      this.http.post(this.api + '/api/Contactos', JSON.stringify(data), options).subscribe(res => {
+      let headers = new HttpHeaders().set("Content-Type", "application/json");
+      this.http.post(this.api + '/api/Contactos', JSON.stringify(data), { headers: headers }).subscribe(res => {
         resolve(res);
       }, (err) => {
         reject(err);
