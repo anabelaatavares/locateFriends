@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { GoogleMapsProvider } from '../../providers/google-maps/google-maps';
 import { LocationsProvider } from '../../providers/locations/locations';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the MapsPage page.
@@ -9,6 +10,7 @@ import { LocationsProvider } from '../../providers/locations/locations';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+declare var google;
 
 @IonicPage()
 @Component({
@@ -18,19 +20,19 @@ import { LocationsProvider } from '../../providers/locations/locations';
 export class MapsPage {
 
   @ViewChild('map') mapElement: ElementRef;
-
-  constructor(public navCtrl: NavController, public maps: GoogleMapsProvider, 
-     public locations: LocationsProvider) {
+  map: any;
+  constructor(public navCtrl: NavController, public maps: GoogleMapsProvider,
+    public locations: LocationsProvider, public geolocation: Geolocation) {
+      
   }
 
-  ionViewDidLoad() {
-
+  ionViewWillEnter() {
     let mapLoaded = this.maps.init(this.mapElement.nativeElement);
     let locationsLoaded = this.locations.load();
-    
+
     console.log(locationsLoaded);
-    
-    Promise.all([mapLoaded,locationsLoaded]).then((result) => {
+
+    Promise.all([mapLoaded, locationsLoaded]).then((result) => {
 
       let locations = result[1];
 
@@ -39,7 +41,5 @@ export class MapsPage {
       }
 
     });
-
   }
-
 }

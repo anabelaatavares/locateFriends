@@ -15,6 +15,9 @@ export class RestProvider {
   api: string = 'http://84.91.32.243:3000';
   constructor(public http: HttpClient) {
     console.log('Hello RestProvider Provider');
+    setTimeout(() => {
+      this.getUsers();
+    }, 2500);
   }
 
   async getUsers() {

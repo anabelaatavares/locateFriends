@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConnectivityProvider } from '../connectivity/connectivity';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Platform } from 'ionic-angular';
 
 
 /*
@@ -21,16 +22,15 @@ export class GoogleMapsProvider {
   map: any;
   markers: any = [];
 
-  constructor(public connectivityService: ConnectivityProvider, public geo: Geolocation) {
-
+  constructor(public connectivityService: ConnectivityProvider, public geo: Geolocation, public platform: Platform) {
+    console.log('Hello GoogleMapsProvider Provider');
   }
 
-  init(mapElement: any): Promise<any> {
-
-    this.mapElement = mapElement;
-
-    return this.initMap();
-
+  init(mapElement: any) {
+    this.platform.ready().then(() => {
+      this.mapElement = mapElement;
+      this.initMap();
+    });
   }
 
   initMap(): Promise<any> {
@@ -38,27 +38,38 @@ export class GoogleMapsProvider {
     this.mapInitialised = true;
 
     return new Promise((resolve) => {
+      //GEOLOCALIZACAO
+      // this.geo.getCurrentPosition().then((position) => {
+      // let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      let latLng = new google.maps.LatLng(40.5391435, -7.2777507);
 
-      this.geo.getCurrentPosition().then((position) => {
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
 
-        // UNCOMMENT FOR NORMAL USE
-        let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        //let latLng = new google.maps.LatLng(40.713744, -74.009056);
+      this.map = new google.maps.Map(this.mapElement, mapOptions);
 
-        let mapOptions = {
-          center: latLng,
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
+      resolve(true);
 
-        this.map = new google.maps.Map(this.mapElement, mapOptions);
-
-        resolve(true);
-
-      });
+      // });
 
     });
 
+  }
+
+  addMarkerInfo(lat: number, lng: number): void {
+
+    let latLng = new google.maps.LatLng(lat, lng);
+
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng
+    });
+
+    this.markers.push(marker);
   }
 
   addMarker(info: string, lat: number, lng: number): void {
@@ -72,7 +83,7 @@ export class GoogleMapsProvider {
     });
 
     this.markers.push(marker);
-    
+
     let content = "<p>" + info + "</p>"
 
     this.addInfoWindow(marker, content);

@@ -17,35 +17,41 @@ export class LocationsProvider {
   api: string = 'http://84.91.32.243:3000/api/Contactos';
 
   constructor(public http: HttpClient, public geo: Geolocation) {
-
+    console.log('Hello LocationsProvider Provider');
   }
 
   load() {
 
-    if(this.data){
-			return Promise.resolve(this.data);
-		} 
+    if (this.data) {
+      return Promise.resolve(this.data);
+    }
 
     return new Promise(resolve => {
 
       this.http.get(this.api).subscribe(data => {
 
-        this.geo.getCurrentPosition().then((position) => {
+        //GEOLOCALIZACAO
+        // this.geo.getCurrentPosition().then((position) => {
+        //   let usersLocation = {
+        //     lat: position.coords.latitude,
+        //     lng: position.coords.longitude
+        //   };
 
-          let usersLocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
+        let usersLocation = {
+          lat: 40.5391435,
+          lng: -7.2777507
+        };
 
-          this.data = this.applyHaversine(data, usersLocation);
 
-          this.data.sort((locationA, locationB) => {
-            return locationA.distance - locationB.distance;
-          });
-          resolve(this.data);
+        this.data = this.applyHaversine(data, usersLocation);
+
+        this.data.sort((locationA, locationB) => {
+          return locationA.distance - locationB.distance;
         });
+        resolve(this.data);
       });
     });
+    // });
 
   }
 
