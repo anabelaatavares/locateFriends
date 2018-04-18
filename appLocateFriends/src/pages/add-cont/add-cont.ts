@@ -19,10 +19,9 @@ let data = { latitude: "", longitude: "" };
   templateUrl: 'add-cont.html',
 })
 export class AddContPage {
-
-
   longitude: any;
   latitude: any;
+ 
   @ViewChild('map') mapElement: ElementRef;
 
   mapLoaded: Promise<any>;
